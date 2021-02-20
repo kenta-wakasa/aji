@@ -1,3 +1,4 @@
+import 'package:aji/provider/users_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,6 +7,7 @@ import 'navigation_page.dart';
 class MainPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    watch(usersProvider);
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.lightBlue[900],

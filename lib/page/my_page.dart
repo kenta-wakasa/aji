@@ -8,8 +8,8 @@ import 'common_widget/google_button.dart';
 class MyPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final _authProvider = watch(authProvider);
-    final users = _authProvider.users;
+    final _usersProvider = watch(usersProvider);
+    final users = _usersProvider.users;
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +30,7 @@ class MyPage extends ConsumerWidget {
                         users.name,
                       );
                       if (res?.isNotEmpty ?? false) {
-                        await _authProvider.updateName(res);
+                        await _usersProvider.updateName(res);
                       }
                     },
               child: Text(
@@ -40,7 +40,7 @@ class MyPage extends ConsumerWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                await _authProvider.signOut();
+                await _usersProvider.signOut();
               },
               child: const Text('サインアウト'),
             ),

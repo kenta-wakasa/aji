@@ -8,43 +8,43 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../entity/users.dart';
 
-final authProvider = ChangeNotifierProvider.autoDispose<AuthProvider>(
-  (ref) => AuthProvider._(),
+final usersProvider = ChangeNotifierProvider<UsersProvider>(
+  (ref) => UsersProvider._(),
 );
 
-class AuthProvider extends ChangeNotifier {
-  AuthProvider._() {
-    sub = auth.authStateChanges().listen(
+class UsersProvider extends ChangeNotifier {
+  UsersProvider._() {
+    _sub = _auth.authStateChanges().listen(
       (
         User user,
       ) async {
         if (user == null) {
-          await auth.signInAnonymously();
+          await _auth.signInAnonymously();
           _users = Users.anonymous();
         } else {
-          if (auth.currentUser.isAnonymous) {
+          if (_auth.currentUser.isAnonymous) {
             _users = Users.anonymous();
           } else {
             _users = await UsersRepository.instance.fetchByUserId(user.uid);
           }
         }
+        notifyListeners();
       },
     );
   }
   @override
   void dispose() {
     super.dispose();
-    sub.cancel();
+    _sub.cancel();
   }
 
-
-  StreamSubscription sub;
-  FirebaseAuth auth = FirebaseAuth.instance;
+  StreamSubscription _sub;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   Users _users;
   Users get users => _users;
 
   Future<void> signOut() async {
-    await auth.signInAnonymously();
+    await _auth.signInAnonymously();
     notifyListeners();
   }
 
@@ -62,9 +62,9 @@ class AuthProvider extends ChangeNotifier {
     );
 
     // Once signed in, return the UserCredential
-    await auth.signInWithCredential(credential);
+    await _auth.signInWithCredential(credential);
 
-    await UsersRepository.instance.addUsers(Users.fromUser(auth.currentUser));
+    await UsersRepository.instance.addUsers(Users.fromUser(_auth.currentUser));
 
     notifyListeners();
   }

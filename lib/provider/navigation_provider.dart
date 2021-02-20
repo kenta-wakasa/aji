@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,15 +14,8 @@ class NavigationProvider extends ChangeNotifier {
     _pageList = <Widget>[HomePage(), MyPage()];
   }
 
-  @override
-  void dispose() {
-    _sub?.cancel();
-    super.dispose();
-  }
-
   List<Widget> _pageList;
   int _currentIndex;
-  StreamSubscription<String> _sub;
 
   int get currentIndex => _currentIndex;
   Widget get currentPage => _pageList[currentIndex];

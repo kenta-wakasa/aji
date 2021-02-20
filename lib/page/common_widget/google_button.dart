@@ -7,7 +7,7 @@ import '../../provider/providers.dart';
 class GoogleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final provider = watch(authProvider);
+    final provider = watch(usersProvider);
     return SizedBox(
       height: 48,
       width: 240,

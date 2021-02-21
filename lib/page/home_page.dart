@@ -7,16 +7,11 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'ホーム画面',
-          style: Theme.of(context).textTheme.headline6,
-        ),
+        title: Text('ホーム画面', style: Theme.of(context).textTheme.headline6),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_rounded),
-        onPressed: () async {
-          await AddPostDialog.showDialog(context);
-        },
+        onPressed: () => AddPostDialog.showDialog(context),
       ),
     );
   }

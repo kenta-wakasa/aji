@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../entity/users.dart';
+import '../page/change_name_dialog.dart';
 
 final usersProvider = ChangeNotifierProvider<UsersProvider>(
   (ref) => UsersProvider._(),
@@ -25,6 +26,7 @@ class UsersProvider extends ChangeNotifier {
           if (_auth.currentUser.isAnonymous) {
             _users = Users.anonymous();
           } else {
+            await UsersRepository.instance.addUsers(Users.fromUser(user));
             _users = await UsersRepository.instance.fetchByUserId(user.uid);
           }
         }
@@ -69,8 +71,15 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateName(String name) async {
+  Future<void> _updateName(String name) async {
     _users = await users.updateName(name);
+  }
+
+  Future<void> changeName(BuildContext context) async {
+    final res = await ChangeNameDialog.showDialog(context, users.name);
+    if (res?.isNotEmpty ?? false) {
+      await _updateName(res);
+    }
     notifyListeners();
   }
 }

@@ -15,14 +15,8 @@ class NavigationPage extends ConsumerWidget {
         currentIndex: provider.currentIndex,
         onTap: (index) => provider.currentIndex = index,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.face_rounded),
-            label: '',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.face_rounded), label: ''),
         ],
       ),
     );

@@ -12,7 +12,7 @@ import 'package:image_cropper/image_cropper.dart';
 import '../entity/posts.dart';
 import '../entity/users.dart';
 
-final postsProvider = ChangeNotifierProvider.autoDispose<PostsProvider>(
+final postsProvider = ChangeNotifierProvider<PostsProvider>(
   (ref) => PostsProvider._(ref.watch(usersProvider).users),
 );
 

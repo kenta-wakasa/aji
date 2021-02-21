@@ -8,6 +8,7 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -18,25 +19,18 @@ class LoginPage extends ConsumerWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Container(
-                  color: Theme.of(context).primaryColor,
-                ),
+                Container(color: Theme.of(context).primaryColor),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: FittedBox(
                     fit: BoxFit.fill,
-                    child: Text(
-                      'AJI-BAN',
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
+                    child: Text('AJI-BAN', style: textTheme.headline1),
                   ),
                 ),
               ],
             ),
           ),
-          SafeArea(
-            child: GoogleButton(),
-          ),
+          GoogleButton(),
           const SizedBox(height: 12),
         ],
       ),

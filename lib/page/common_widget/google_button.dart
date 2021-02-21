@@ -9,13 +9,17 @@ class GoogleButton extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final provider = watch(usersProvider);
     return SizedBox(
-      height: 48,
+      height: 40,
       width: 240,
       child: ElevatedButton(
         child: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            SvgPicture.asset('images/btn_google_light_normal_ios.svg'),
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: SvgPicture.asset('images/btn_google_light_normal_ios.svg'),
+            ),
             const Text('Login with Google    '),
           ],
         ),
@@ -24,9 +28,7 @@ class GoogleButton extends ConsumerWidget {
           onPrimary: Colors.black, // foreground
           textStyle: Theme.of(context).textTheme.button,
         ),
-        onPressed: () async {
-          await provider.signInWithGoogle();
-        },
+        onPressed: provider.signInWithGoogle,
       ),
     );
   }

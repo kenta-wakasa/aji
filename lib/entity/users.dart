@@ -8,12 +8,14 @@ class Users {
     @required this.id,
     @required this.name,
     @required this.createdAt,
+    @required this.avatarUrl,
   });
   factory Users.fromSnapshot(DocumentSnapshot snapshot) {
     return Users._(
       id: snapshot.id,
       name: snapshot.data()['name'] as String,
       createdAt: snapshot.data()['createdAt'] as Timestamp,
+      avatarUrl: snapshot.data()['avatarUrl'] as String,
     );
   }
 
@@ -22,6 +24,7 @@ class Users {
       id: null,
       name: 'ゲスト',
       createdAt: Timestamp.fromDate(DateTime.now()),
+      avatarUrl: '',
     );
   }
 
@@ -30,12 +33,14 @@ class Users {
       id: user.uid,
       name: user.displayName,
       createdAt: Timestamp.fromDate(DateTime.now()),
+      avatarUrl: user.photoURL,
     );
   }
 
   final String id;
   final String name;
   final Timestamp createdAt;
+  final String avatarUrl;
 
   Future<Users> updateName(String name) async {
     final users = copyWith(name: name);
@@ -47,11 +52,13 @@ class Users {
     String id,
     String name,
     Timestamp createdAt,
+    String avatarUrl,
   }) =>
       Users._(
         id: id ?? this.id,
         name: name ?? this.name,
         createdAt: createdAt ?? this.createdAt,
+        avatarUrl: avatarUrl ?? this.avatarUrl,
       );
 }
 
@@ -77,6 +84,7 @@ class UsersRepository {
         <String, dynamic>{
           'name': users.name,
           'createdAt': users.createdAt,
+          'avatarUrl': users.avatarUrl,
         },
       );
     }
@@ -87,6 +95,7 @@ class UsersRepository {
       <String, dynamic>{
         'name': users.name,
         'createdAt': users.createdAt,
+        'avatarUrl': users.avatarUrl,
       },
     );
   }

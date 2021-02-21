@@ -11,6 +11,8 @@ class MainPage extends ConsumerWidget {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.lightBlue[900],
+        accentColor: Colors.lightBlue[900],
+        buttonColor: Colors.lightBlue[900],
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: const TextTheme(
           headline1: TextStyle(
@@ -29,6 +31,9 @@ class MainPage extends ConsumerWidget {
             fontWeight: FontWeight.bold,
           ),
           button: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.lightBlue[900],
         ),
       ),
       home: NavigationPage(),

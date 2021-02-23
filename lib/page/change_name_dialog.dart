@@ -10,7 +10,7 @@ class ChangeNameDialog extends StatelessWidget {
       context,
       MaterialPageRoute(
         fullscreenDialog: true,
-        builder: (_) => ChangeNameDialog._(name: name),
+        builder: (context) => ChangeNameDialog._(name: name),
       ),
     );
     return res;

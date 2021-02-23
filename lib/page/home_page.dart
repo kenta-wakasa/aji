@@ -7,7 +7,13 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ホーム画面', style: Theme.of(context).textTheme.headline6),
+        title: SizedBox(
+          height: 40,
+          child: Image.asset(
+            'images/logo.png',
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_rounded),

@@ -8,32 +8,39 @@ class MainPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     watch(usersProvider);
+    final mainColor = Colors.lightBlue[900];
+    // const mainColor = Colors.white;
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.lightBlue[900],
-        accentColor: Colors.lightBlue[900],
-        buttonColor: Colors.lightBlue[900],
+        primaryColor: mainColor,
+        accentColor: mainColor,
+        buttonColor: mainColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: const TextTheme(
+        appBarTheme: AppBarTheme(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          iconTheme: IconThemeData(color: mainColor),
+          elevation: 0.4,
+        ),
+        textTheme: TextTheme(
           headline1: TextStyle(
             fontSize: 120,
-            color: Colors.white,
+            color: mainColor,
             fontWeight: FontWeight.bold,
           ),
           headline6: TextStyle(
             fontSize: 16,
-            color: Colors.white,
+            color: mainColor,
             fontWeight: FontWeight.bold,
           ),
-          bodyText1: TextStyle(
+          bodyText1: const TextStyle(
             fontSize: 24,
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
-          button: TextStyle(fontWeight: FontWeight.bold),
+          button: const TextStyle(fontWeight: FontWeight.bold),
         ),
         buttonTheme: ButtonThemeData(
-          buttonColor: Colors.lightBlue[900],
+          buttonColor: mainColor,
         ),
       ),
       home: NavigationPage(),

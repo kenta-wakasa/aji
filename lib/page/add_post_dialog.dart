@@ -5,8 +5,9 @@ import '../provider/providers.dart';
 
 class AddPostDialog extends ConsumerWidget {
   const AddPostDialog._();
-  static Future<void> showDialog(BuildContext context) async {
-    await Navigator.of(context).push<void>(
+  static void showDialog(BuildContext context) {
+    context.read(postsProvider).addImage();
+    Navigator.of(context).push<void>(
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (_) => const AddPostDialog._(),

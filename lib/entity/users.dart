@@ -24,7 +24,8 @@ class Users {
       id: null,
       name: 'ゲスト',
       createdAt: Timestamp.fromDate(DateTime.now()),
-      avatarUrl: '',
+      avatarUrl:
+          'https://firebasestorage.googleapis.com/v0/b/aji-dev.appspot.com/o/assets%2Fdefault_avator.png?alt=media&token=eab9105b-08da-48e7-bfd6-b51eabad0856',
     );
   }
 

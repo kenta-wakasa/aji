@@ -6,8 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../entity/users.dart';
-import '../page/change_name_dialog.dart';
+import '../entities/users.dart';
+import '../pages/change_name_dialog.dart';
 
 final usersProvider = ChangeNotifierProvider<UsersProvider>(
   (ref) => UsersProvider._(),

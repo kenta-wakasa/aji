@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'page/main_page.dart';
+import 'pages/main_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +44,7 @@ class SomethingWentWrong extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: Center(child: Text('Firebaseとの接続に失敗しました')),
+        body: Center(child: Text('サーバーとの接続に失敗しました')),
       ),
     );
   }
@@ -55,7 +55,7 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: Center(child: Text('初期化中')),
+        body: Center(child: Text('起動準備中...')),
       ),
     );
   }

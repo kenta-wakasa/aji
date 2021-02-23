@@ -33,7 +33,7 @@ class Users {
     return Users._(
       id: user.uid,
       name: user.displayName,
-      createdAt: Timestamp.fromDate(DateTime.now()),
+      createdAt: Timestamp.now(),
       avatarUrl: user.photoURL,
     );
   }

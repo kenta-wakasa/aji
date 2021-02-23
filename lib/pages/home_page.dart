@@ -1,6 +1,7 @@
-import 'package:aji/page/add_post_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'add_post_dialog.dart';
 
 class HomePage extends ConsumerWidget {
   @override

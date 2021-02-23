@@ -1,9 +1,9 @@
-import 'package:aji/page/common_widget/normal_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../provider/providers.dart';
-import 'common_widget/google_button.dart';
+import '../providers/providers.dart';
+import 'common_widgets/google_button.dart';
+import 'common_widgets/normal_button.dart';
 
 class MyPage extends ConsumerWidget {
   @override

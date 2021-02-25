@@ -20,7 +20,10 @@ class AddPostDialog extends ConsumerWidget {
     final file = _postProvider.imageFile;
     return Scaffold(
       appBar: AppBar(
-        title: Text('投稿', style: Theme.of(context).textTheme.headline6),
+        title: Text(
+          '投稿',
+          style: AppBarTheme.of(context).titleTextStyle,
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.send_rounded),

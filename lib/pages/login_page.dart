@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'common_widget/google_button.dart';
+import 'common_widgets/google_button.dart';
 
 class LoginPage extends ConsumerWidget {
   @override
@@ -20,11 +20,11 @@ class LoginPage extends ConsumerWidget {
               alignment: Alignment.center,
               children: [
                 Container(color: Theme.of(context).primaryColor),
-                Padding(
-                  padding: const EdgeInsets.all(8),
+                const Padding(
+                  padding: EdgeInsets.all(8),
                   child: FittedBox(
                     fit: BoxFit.fill,
-                    child: Text('AJI-BAN', style: textTheme.headline1),
+                    child: Text('AJI-BAN'),
                   ),
                 ),
               ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../providers/providers.dart';
 import 'add_post_dialog.dart';
 
 class HomePage extends ConsumerWidget {
@@ -12,7 +13,7 @@ class HomePage extends ConsumerWidget {
           height: 40,
           child: Image.asset(
             'images/logo.png',
-            color: Theme.of(context).primaryColor,
+            color: AppBarTheme.of(context).foregroundColor,
           ),
         ),
       ),

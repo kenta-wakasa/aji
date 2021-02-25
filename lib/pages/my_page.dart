@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
 import 'common_widgets/google_button.dart';
 import 'common_widgets/normal_button.dart';
+import 'settings_page.dart';
 
 class MyPage extends ConsumerWidget {
   @override
@@ -13,12 +14,24 @@ class MyPage extends ConsumerWidget {
     final anonymous = users.id == null;
     final textStyle = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(title: Text('マイページ', style: textStyle.headline6)),
+      appBar: AppBar(
+        title: Text(
+          'マイページ',
+          style: AppBarTheme.of(context).titleTextStyle,
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings_rounded),
+            onPressed: () => SettingPage.showPage(context),
+          )
+        ],
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Spacer(flex: 6),
           CircleAvatar(
+            backgroundColor: Theme.of(context).primaryColor,
             foregroundImage: NetworkImage(users.avatarUrl),
             radius: 40,
           ),

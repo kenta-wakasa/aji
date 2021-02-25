@@ -22,7 +22,7 @@ class ChangeNameDialog extends StatelessWidget {
     final nav = Navigator.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('名前を変更する', style: textTheme.headline6),
+        title: const Text('名前を変更する'),
       ),
       body: Center(
         child: TextField(

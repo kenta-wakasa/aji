@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../pages/home_page.dart';
 import '../pages/my_page.dart';
+import '../pages/post_list_page.dart';
 
 final navigationProvider = ChangeNotifierProvider<NavigationProvider>(
   (ref) => NavigationProvider._(),
@@ -11,7 +11,7 @@ final navigationProvider = ChangeNotifierProvider<NavigationProvider>(
 class NavigationProvider extends ChangeNotifier {
   NavigationProvider._() {
     _currentIndex = 0;
-    _pageList = <Widget>[HomePage(), MyPage()];
+    _pageList = <Widget>[PostListPage(), MyPage()];
   }
 
   List<Widget> _pageList;

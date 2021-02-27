@@ -10,12 +10,12 @@ class Users {
     @required this.createdAt,
     @required this.avatarUrl,
   });
-  factory Users.fromSnapshot(DocumentSnapshot snapshot) {
+  factory Users.fromDoc({@required DocumentSnapshot doc}) {
     return Users._(
-      id: snapshot.id,
-      name: snapshot.data()['name'] as String,
-      createdAt: snapshot.data()['createdAt'] as Timestamp,
-      avatarUrl: snapshot.data()['avatarUrl'] as String,
+      id: doc.id,
+      name: doc.data()['name'] as String,
+      createdAt: doc.data()['createdAt'] as Timestamp,
+      avatarUrl: doc.data()['avatarUrl'] as String,
     );
   }
 
@@ -69,13 +69,13 @@ class UsersRepository {
   final _users = FirebaseFirestore.instance.collection('users');
 
   Future<Users> fetchByUserId(String userId) async {
-    final snapshot = await _users.doc(userId).get();
-    return Users.fromSnapshot(snapshot);
+    final doc = await _users.doc(userId).get();
+    return Users.fromDoc(doc: doc);
   }
 
   Future<List<Users>> fetchAllUsers() async {
     final query = await _users.get();
-    return query.docs.map((snapshot) => Users.fromSnapshot(snapshot)).toList();
+    return query.docs.map((doc) => Users.fromDoc(doc: doc)).toList();
   }
 
   Future<void> addUsers(Users users) async {

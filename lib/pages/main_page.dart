@@ -10,7 +10,6 @@ class MainPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     watch(usersProvider);
     final _themeProvider = watch(themeProvider);
-    // const mainColor = Colors.white;
     return MaterialApp(
       themeMode: _themeProvider.mode,
       theme: _themeProvider.themeDataLight,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -10,12 +12,12 @@ class Posts {
     @required this.url,
   });
 
-  factory Posts.fromSnapshot(DocumentSnapshot snapshot) {
+  factory Posts.fromDoc({@required DocumentSnapshot doc}) {
     return Posts(
-      usersId: snapshot.data()['usersId'] as String,
-      title: snapshot.data()['title'] as String,
-      url: snapshot.data()['url'] as String,
-      createdAt: snapshot.data()['createdAt'] as Timestamp,
+      usersId: doc.data()['usersId'] as String,
+      title: doc.data()['title'] as String,
+      url: doc.data()['url'] as String,
+      createdAt: doc.data()['createdAt'] as Timestamp,
     );
   }
 
@@ -40,8 +42,20 @@ class Posts {
 
 class PostsRepository {
   PostsRepository._();
+
   static PostsRepository instance = PostsRepository._();
+  static const limit = 3;
+
   final _posts = FirebaseFirestore.instance.collection('posts');
+
+  DocumentSnapshot _lastDoc;
+  Stream<QuerySnapshot> _stream;
+  StreamSubscription<QuerySnapshot> _subNewPosts;
+  List<Posts> _newPostList = <Posts>[];
+  List<Posts> _oldPostList = <Posts>[];
+
+  List<Posts> get postList => [..._newPostList, ..._oldPostList];
+  Stream<QuerySnapshot> get stream => _stream;
 
   Future<void> addPosts(Posts posts) async {
     await _posts.add(
@@ -52,5 +66,54 @@ class PostsRepository {
         'createdAt': posts.createdAt,
       },
     );
+  }
+
+  Future<void> fetchPosts() async {
+    final snapshot =
+        await _posts.orderBy('createdAt', descending: true).limit(limit).get();
+    _lastDoc = snapshot.docs.last;
+    final firstDoc = snapshot.docs.first;
+    _stream = _posts
+        .orderBy('createdAt', descending: true)
+        .endBeforeDocument(firstDoc)
+        .snapshots();
+    if (_subNewPosts != null) {
+      await _subNewPosts.cancel();
+    }
+    _subNewPosts = _stream.listen(
+      (snapShot) => _newPostList =
+          snapShot.docs.map((doc) => Posts.fromDoc(doc: doc)).toList(),
+    );
+    _oldPostList = snapshot.docs.map((doc) => Posts.fromDoc(doc: doc)).toList();
+  }
+
+  Future<bool> fetchNextPosts() async {
+    assert(_lastDoc != null);
+    try {
+      final snapshot = await _posts
+          .orderBy('createdAt', descending: true)
+          .startAfterDocument(_lastDoc)
+          .limit(limit)
+          .get();
+      if (snapshot.docs.isEmpty) {
+        return false;
+      }
+      _lastDoc = snapshot.docs.last;
+      _oldPostList.addAll(
+        snapshot.docs
+            .map(
+              (doc) => Posts.fromDoc(doc: doc),
+            )
+            .toList(),
+      );
+      return true;
+    } on Exception catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<void> subscriptionCancel() async {
+    await _subNewPosts.cancel();
   }
 }

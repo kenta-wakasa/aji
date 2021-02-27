@@ -3,8 +3,8 @@
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
     "editor.rulers": [
-      80
+      120
     ],
   },
- "dart.lineLength": 80
+ "dart.lineLength": 120
 }

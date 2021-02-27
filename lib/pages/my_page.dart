@@ -32,7 +32,7 @@ class MyPage extends ConsumerWidget {
           const Spacer(flex: 6),
           CircleAvatar(
             backgroundColor: Theme.of(context).primaryColor,
-            foregroundImage: NetworkImage(users.avatarUrl),
+            foregroundImage: const AssetImage('images/default_avatar.png'),
             radius: 40,
           ),
           const Spacer(flex: 1),

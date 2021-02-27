@@ -80,7 +80,7 @@ class PostsProvider extends ChangeNotifier {
     }
     final posts = Posts(
       url: url,
-      usersId: users.id,
+      users: users,
       title: title,
       createdAt: Timestamp.now(),
     );

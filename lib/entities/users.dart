@@ -10,14 +10,6 @@ class Users {
     @required this.createdAt,
     @required this.avatarUrl,
   });
-  factory Users.fromDoc({@required DocumentSnapshot doc}) {
-    return Users._(
-      id: doc.id,
-      name: doc.data()['name'] as String,
-      createdAt: doc.data()['createdAt'] as Timestamp,
-      avatarUrl: doc.data()['avatarUrl'] as String,
-    );
-  }
 
   factory Users.anonymous() {
     return Users._(
@@ -37,6 +29,13 @@ class Users {
       avatarUrl: user.photoURL,
     );
   }
+  
+  static Users fromDoc(DocumentSnapshot doc) => Users._(
+        id: doc.id,
+        name: doc.data()['name'] as String,
+        createdAt: doc.data()['createdAt'] as Timestamp,
+        avatarUrl: doc.data()['avatarUrl'] as String,
+      );
 
   final String id;
   final String name;
@@ -69,13 +68,13 @@ class UsersRepository {
   final _users = FirebaseFirestore.instance.collection('users');
 
   Future<Users> fetchByUserId(String userId) async {
-    final doc = await _users.doc(userId).get();
-    return Users.fromDoc(doc: doc);
+    return Users.fromDoc(await _users.doc(userId).get());
   }
 
   Future<List<Users>> fetchAllUsers() async {
     final query = await _users.get();
-    return query.docs.map((doc) => Users.fromDoc(doc: doc)).toList();
+
+    return query.docs.map(Users.fromDoc).toList();
   }
 
   Future<void> addUsers(Users users) async {
@@ -93,11 +92,7 @@ class UsersRepository {
 
   Future<void> updateUsers(Users users) async {
     await _users.doc(users.id).update(
-      <String, dynamic>{
-        'name': users.name,
-        'createdAt': users.createdAt,
-        'avatarUrl': users.avatarUrl,
-      },
+      <String, dynamic>{'name': users.name, 'createdAt': users.createdAt, 'avatarUrl': users.avatarUrl},
     );
   }
 }

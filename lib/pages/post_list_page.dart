@@ -1,3 +1,4 @@
+import 'package:aji/pages/post_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -37,8 +38,8 @@ class PostListPage extends ConsumerWidget {
         controller: controller,
         itemCount: provider.postList.length,
         itemBuilder: (context, index) {
-          final post = provider.postList[index];
-          return ListTile(title: Image.network(post.url));
+          final posts = provider.postList[index];
+          return PostCard(posts: posts);
         },
       ),
     );

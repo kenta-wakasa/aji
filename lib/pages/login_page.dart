@@ -8,7 +8,6 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

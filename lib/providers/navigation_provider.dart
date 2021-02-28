@@ -13,7 +13,7 @@ class NavigationProvider extends ChangeNotifier {
     _currentIndex = 0;
     _pageList = <Widget>[PostListPage(), MyPage()];
   }
-
+  final scrollController = ScrollController();
   List<Widget> _pageList;
   int _currentIndex;
 
@@ -23,5 +23,9 @@ class NavigationProvider extends ChangeNotifier {
   set currentIndex(int index) {
     _currentIndex = index;
     notifyListeners();
+  }
+
+  void resetScrollPos() {
+    scrollController.animateTo(0, curve: Curves.easeOut, duration: const Duration(milliseconds: 500));
   }
 }

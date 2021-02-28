@@ -17,6 +17,7 @@ class ThemeProvider extends ChangeNotifier {
   ThemeData themeDataLight;
   ThemeData themeDataDark;
   AppBarTheme appBarTheme;
+  TextTheme textTheme;
 
   ThemeMode get mode => _mode;
 
@@ -36,10 +37,16 @@ class ThemeProvider extends ChangeNotifier {
       iconTheme: IconThemeData(color: mainColor),
     );
 
+    textTheme = const TextTheme(
+        headline6: TextStyle(
+      fontWeight: FontWeight.bold,
+    ));
+
     themeDataLight = ThemeData(
       primaryColor: mainColor,
       accentColor: mainColor,
       appBarTheme: appBarTheme,
+      textTheme: textTheme,
     );
     themeDataDark = ThemeData(
       primaryColor: mainColor,
@@ -48,6 +55,7 @@ class ThemeProvider extends ChangeNotifier {
         backgroundColor: ThemeData.dark().scaffoldBackgroundColor,
         shadowColor: Colors.white,
       ),
+      textTheme: textTheme,
       brightness: Brightness.dark,
     );
   }

@@ -24,7 +24,12 @@ class NavigationPage extends ConsumerWidget {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           currentIndex: provider.currentIndex,
-          onTap: (index) => provider.currentIndex = index,
+          onTap: (index) {
+            if (index == 0 && index == provider.currentIndex) {
+              provider.resetScrollPos();
+            }
+            provider.currentIndex = index;
+          },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home_rounded),

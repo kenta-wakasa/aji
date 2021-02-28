@@ -12,6 +12,7 @@ class MyPage extends ConsumerWidget {
     final provider = watch(usersProvider);
     final users = provider.users;
     final anonymous = users.id == null;
+    final avatarImage = anonymous ? const AssetImage('images/default_avatar.png') : NetworkImage(users.avatarUrl);
     final textStyle = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +33,7 @@ class MyPage extends ConsumerWidget {
           const Spacer(flex: 6),
           CircleAvatar(
             backgroundColor: Theme.of(context).primaryColor,
-            foregroundImage: const AssetImage('images/default_avatar.png'),
+            foregroundImage: avatarImage as ImageProvider,
             radius: 40,
           ),
           const Spacer(flex: 1),

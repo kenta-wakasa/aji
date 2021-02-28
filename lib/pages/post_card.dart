@@ -8,7 +8,7 @@ class PostCard extends ConsumerWidget {
   final Posts posts;
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final size = MediaQuery.of(context).size.width * 5 / 6;
+    final size = MediaQuery.of(context).size.width - 32;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -20,7 +20,7 @@ class PostCard extends ConsumerWidget {
                 Container(
                   height: size,
                   width: size,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).primaryColor,
                 ),
                 SizedBox(
                   height: size - 16,
@@ -31,6 +31,25 @@ class PostCard extends ConsumerWidget {
                   ),
                 ),
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    foregroundImage: NetworkImage(
+                      posts.users.avatarUrl,
+                    ),
+                  ),
+                  Text(posts.title, style: Theme.of(context).textTheme.headline6),
+                  IconButton(
+                    icon: const Icon(Icons.favorite_border_rounded),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
           ],
         ),

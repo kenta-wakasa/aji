@@ -15,35 +15,35 @@ final usersProvider = ChangeNotifierProvider<UsersProvider>(
 
 class UsersProvider extends ChangeNotifier {
   UsersProvider._() {
-    _sub = _auth.authStateChanges().listen(
-      (
-        User user,
-      ) async {
-        if (user == null) {
-          await _auth.signInAnonymously();
-          _users = Users.anonymous();
-        } else {
-          if (_auth.currentUser.isAnonymous) {
-            _users = Users.anonymous();
-          } else {
-            await UsersRepository.instance.addUsers(Users.fromUser(user));
-            _users = await UsersRepository.instance.fetchByUserId(user.uid);
-          }
-        }
-        notifyListeners();
-      },
-    );
+    _sub = _auth.authStateChanges().listen(signIn);
   }
+
   @override
   void dispose() {
     super.dispose();
     _sub.cancel();
   }
 
-  StreamSubscription _sub;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  StreamSubscription _sub;
   Users _users;
+
   Users get users => _users;
+
+  Future<void> signIn(User user) async {
+    if (user == null) {
+      await _auth.signInAnonymously();
+      _users = Users.anonymous();
+    } else {
+      if (_auth.currentUser.isAnonymous) {
+        _users = Users.anonymous();
+      } else {
+        await UsersRepository.instance.addUsers(Users.fromUser(user));
+        _users = await UsersRepository.instance.fetchByUserId(user.uid);
+      }
+    }
+    notifyListeners();
+  }
 
   Future<void> signOut() async {
     await _auth.signInAnonymously();
@@ -71,14 +71,10 @@ class UsersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _updateName(String name) async {
-    _users = await users.updateName(name);
-  }
-
-  Future<void> changeName(BuildContext context) async {
+  Future<void> updateName(BuildContext context) async {
     final res = await ChangeNameDialog.showDialog(context, users.name);
     if (res?.isNotEmpty ?? false) {
-      await _updateName(res);
+      _users = await users.updateName(res);
     }
     notifyListeners();
   }

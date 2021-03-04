@@ -38,7 +38,7 @@ class MyPage extends ConsumerWidget {
           ),
           const Spacer(flex: 1),
           InkWell(
-            onLongPress: anonymous ? null : () => provider.changeName(context),
+            onLongPress: anonymous ? null : () => provider.updateName(context),
             child: Text(users.name, style: textStyle.bodyText1),
           ),
           const Spacer(flex: 4),

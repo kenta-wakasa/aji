@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '/models/posts.dart';
+import '../models/posts.dart';
 
 class PostCard extends ConsumerWidget {
   const PostCard({@required this.posts});

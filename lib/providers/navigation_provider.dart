@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '/pages/my_page.dart';
-import '/pages/post_list_page.dart';
+import '../pages/my_page.dart';
+import '../pages/post_list_page.dart';
 
 final navigationProvider = ChangeNotifierProvider<NavigationProvider>(
   (ref) => NavigationProvider._(),

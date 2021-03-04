@@ -6,5 +6,8 @@
       120
     ],
   },
- "dart.lineLength": 120
+ "dart.lineLength": 120,
+ "dart.flutterSdkPaths": [
+  "fvm"
+ ]
 }

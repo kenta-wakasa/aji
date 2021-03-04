@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '/models/users.dart';
+import 'users.dart';
 
 @immutable
 class Posts {

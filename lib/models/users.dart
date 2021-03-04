@@ -29,7 +29,7 @@ class Users {
       avatarUrl: user.photoURL,
     );
   }
-  
+
   static Users fromDoc(DocumentSnapshot doc) => Users._(
         id: doc.id,
         name: doc.data()['name'] as String,
@@ -47,6 +47,12 @@ class Users {
     await UsersRepository.instance.updateUsers(users);
     return users;
   }
+
+  @override
+  bool operator ==(Object other) => identical(this, other) || other is Users && other.id == id;
+
+  @override
+  int get hashCode => id.hashCode ^ name.hashCode ^ createdAt.hashCode ^ avatarUrl.hashCode;
 
   Users copyWith({
     String id,

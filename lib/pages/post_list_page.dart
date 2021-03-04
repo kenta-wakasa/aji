@@ -2,8 +2,8 @@ import 'package:aji/pages/post_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/providers.dart';
-import 'add_post_dialog.dart';
+import '/pages/add_post_dialog.dart';
+import '/providers/providers.dart';
 
 class PostListPage extends ConsumerWidget {
   @override

@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:aji/entities/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '/models/users.dart';
 
 @immutable
 class Posts {

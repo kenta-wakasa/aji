@@ -2,8 +2,8 @@ import 'package:aji/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/providers.dart';
-import 'navigation_page.dart';
+import '/pages/navigation_page.dart';
+import '/providers/providers.dart';
 
 class MainPage extends ConsumerWidget {
   @override

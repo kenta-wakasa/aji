@@ -4,13 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
-import '../entities/posts.dart';
-import '../entities/users.dart';
-import 'users_provider.dart';
+import '/models/posts.dart';
+import '/models/users.dart';
+import '/providers/providers.dart';
 
 final postsProvider = ChangeNotifierProvider.autoDispose<PostsProvider>(
   (ref) => PostsProvider._(ref.watch(usersProvider).users),

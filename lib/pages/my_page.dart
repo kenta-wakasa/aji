@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/providers.dart';
-import 'common_widgets/google_button.dart';
-import 'common_widgets/normal_button.dart';
-import 'settings_page.dart';
+import '/pages/common_widgets/google_button.dart';
+import '/pages/common_widgets/normal_button.dart';
+import '/pages/settings_page.dart';
+import '/providers/providers.dart';
 
 class MyPage extends ConsumerWidget {
   @override

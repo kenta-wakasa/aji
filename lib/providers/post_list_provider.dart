@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../entities/posts.dart';
+import '/models/posts.dart';
 
 final postListProvider = ChangeNotifierProvider<PostListProvider>(
   (ref) => PostListProvider._(),
@@ -12,12 +12,7 @@ final postListProvider = ChangeNotifierProvider<PostListProvider>(
 
 class PostListProvider extends ChangeNotifier {
   PostListProvider._() {
-    () async {
-      await fetchPosts();
-      _sub = PostsRepository.instance.stream.listen(
-        (event) => notifyListeners()
-      );
-    }();
+    fetchPosts();
   }
 
   bool loading = false;
@@ -38,6 +33,7 @@ class PostListProvider extends ChangeNotifier {
     }
     loading = true;
     await PostsRepository.instance.fetchPosts();
+    _sub = PostsRepository.instance.stream.listen((event) => notifyListeners());
     loading = false;
     notifyListeners();
   }

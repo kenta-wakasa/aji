@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../entities/preferences.dart';
+import '/models/preferences.dart';
 
 final themeProvider = ChangeNotifierProvider<ThemeProvider>(
   (ref) => ThemeProvider._(),

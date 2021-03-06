@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ChangeNameDialog extends StatelessWidget {
-  const ChangeNameDialog._({Key key, @required this.name}) : super(key: key);
+  const ChangeNameDialog._({Key? key, required this.name}) : super(key: key);
 
   final String name;
 
-  static Future<String> showDialog(BuildContext context, String name) async {
+  static Future<String?> showDialog(BuildContext context, String name) async {
     final res = await Navigator.push<String>(
       context,
       MaterialPageRoute(

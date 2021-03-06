@@ -25,7 +25,7 @@ class PostListProvider extends ChangeNotifier {
   }
 
   List<Posts> get postList => PostsRepository.instance.postList;
-  StreamSubscription<QuerySnapshot> _sub;
+  late StreamSubscription<QuerySnapshot> _sub;
 
   Future<void> fetchPosts() async {
     if (loading) {
@@ -33,7 +33,7 @@ class PostListProvider extends ChangeNotifier {
     }
     loading = true;
     await PostsRepository.instance.fetchPosts();
-    _sub = PostsRepository.instance.stream.listen((event) => notifyListeners());
+    _sub = PostsRepository.instance.stream!.listen((event) => notifyListeners());
     loading = false;
     notifyListeners();
   }

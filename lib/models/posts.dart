@@ -8,19 +8,19 @@ import 'users.dart';
 @immutable
 class Posts {
   const Posts({
-    @required this.title,
-    @required this.createdAt,
-    @required this.url,
-    @required this.users,
+    required this.title,
+    required this.createdAt,
+    required this.url,
+    required this.users,
   });
 
   static Future<Posts> fromDoc(DocumentSnapshot doc) async {
-    final userId = doc.data()['usersId'] as String;
+    final userId = doc.data()!['usersId'] as String;
     return Posts(
       users: await UsersRepository.instance.fetchByUserId(userId),
-      title: doc.data()['title'] as String,
-      url: doc.data()['url'] as String,
-      createdAt: doc.data()['createdAt'] as Timestamp,
+      title: doc.data()!['title'] as String,
+      url: doc.data()!['url'] as String,
+      createdAt: doc.data()!['createdAt'] as Timestamp,
     );
   }
 
@@ -38,14 +38,15 @@ class PostsRepository {
 
   final _posts = FirebaseFirestore.instance.collection('posts');
 
-  DocumentSnapshot _lastDoc;
-  Stream<QuerySnapshot> _stream;
-  StreamSubscription<QuerySnapshot> _subNewPosts;
+  DocumentSnapshot? _lastDoc;
+  Stream<QuerySnapshot>? _stream;
+  // ignore: cancel_subscriptions
+  StreamSubscription<QuerySnapshot>? _subNewPosts;
   List<Posts> _newPostList = <Posts>[];
   List<Posts> _oldPostList = <Posts>[];
 
   List<Posts> get postList => [..._newPostList, ..._oldPostList];
-  Stream<QuerySnapshot> get stream => _stream;
+  Stream<QuerySnapshot>? get stream => _stream;
 
   Future<void> addPosts(Posts posts) async {
     await _posts.add(
@@ -64,9 +65,9 @@ class PostsRepository {
     final firstDoc = snapshot.docs.first;
     _stream = _posts.orderBy('createdAt', descending: true).endBeforeDocument(firstDoc).snapshots();
     if (_subNewPosts != null) {
-      await _subNewPosts.cancel();
+      await _subNewPosts!.cancel();
     }
-    _subNewPosts = _stream.listen(
+    _subNewPosts = _stream!.listen(
       (snapShot) async {
         final futureList = snapShot.docs.map(Posts.fromDoc).toList();
         _newPostList = await Future.wait(futureList);
@@ -83,7 +84,7 @@ class PostsRepository {
           'createdAt',
           descending: true,
         )
-        .startAfterDocument(_lastDoc)
+        .startAfterDocument(_lastDoc!)
         .limit(limit)
         .get();
     if (snapshot.docs.isEmpty) {
@@ -97,6 +98,6 @@ class PostsRepository {
   }
 
   Future<void> subscriptionCancel() async {
-    await _subNewPosts.cancel();
+    await _subNewPosts!.cancel();
   }
 }

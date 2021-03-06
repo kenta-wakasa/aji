@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/posts.dart';
 
 class PostCard extends ConsumerWidget {
-  const PostCard({@required this.posts});
+  const PostCard({required this.posts});
   final Posts posts;
   @override
   Widget build(BuildContext context, ScopedReader watch) {

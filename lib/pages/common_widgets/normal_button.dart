@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class NormalButton extends StatelessWidget {
   const NormalButton({
-    Key key,
-    @required this.text,
-    @required this.onPressed,
+    Key? key,
+    required this.text,
+    required this.onPressed,
   }) : super(key: key);
   final String text;
   final Function() onPressed;

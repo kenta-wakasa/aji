@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 @immutable
 class Users {
   const Users._({
-    @required this.id,
-    @required this.name,
-    @required this.createdAt,
-    @required this.avatarUrl,
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.avatarUrl,
   });
 
   factory Users.anonymous() {
@@ -24,25 +24,25 @@ class Users {
   factory Users.fromUser(User user) {
     return Users._(
       id: user.uid,
-      name: user.displayName,
+      name: user.displayName!,
       createdAt: Timestamp.now(),
-      avatarUrl: user.photoURL,
+      avatarUrl: user.photoURL!,
     );
   }
 
   static Users fromDoc(DocumentSnapshot doc) => Users._(
         id: doc.id,
-        name: doc.data()['name'] as String,
-        createdAt: doc.data()['createdAt'] as Timestamp,
-        avatarUrl: doc.data()['avatarUrl'] as String,
+        name: doc.data()!['name'] as String,
+        createdAt: doc.data()!['createdAt'] as Timestamp,
+        avatarUrl: doc.data()!['avatarUrl'] as String,
       );
 
-  final String id;
+  final String? id;
   final String name;
   final Timestamp createdAt;
   final String avatarUrl;
 
-  Future<Users> updateName(String name) async {
+  Future<Users> updateName(String? name) async {
     final users = copyWith(name: name);
     await UsersRepository.instance.updateUsers(users);
     return users;
@@ -55,10 +55,10 @@ class Users {
   int get hashCode => id.hashCode ^ name.hashCode ^ createdAt.hashCode ^ avatarUrl.hashCode;
 
   Users copyWith({
-    String id,
-    String name,
-    Timestamp createdAt,
-    String avatarUrl,
+    String? id,
+    String? name,
+    Timestamp? createdAt,
+    String? avatarUrl,
   }) =>
       Users._(
         id: id ?? this.id,

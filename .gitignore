@@ -47,4 +47,4 @@ app.*.map.json
 
 
 /lib/secret.dart
-/ios/Runner/GoogleService-Info.plist
+/ios/GoogleService-Info.plist

@@ -25,17 +25,17 @@ class UsersProvider extends ChangeNotifier {
   }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  StreamSubscription _sub;
-  Users _users;
+  late StreamSubscription _sub;
+  late Users _users;
 
   Users get users => _users;
 
-  Future<void> signIn(User user) async {
+  Future<void> signIn(User? user) async {
     if (user == null) {
       await _auth.signInAnonymously();
       _users = Users.anonymous();
     } else {
-      if (_auth.currentUser.isAnonymous) {
+      if (_auth.currentUser!.isAnonymous) {
         _users = Users.anonymous();
       } else {
         await UsersRepository.instance.addUsers(Users.fromUser(user));
@@ -52,7 +52,7 @@ class UsersProvider extends ChangeNotifier {
 
   Future<void> signInWithGoogle() async {
     // Trigger the authentication flow
-    final googleUser = await GoogleSignIn().signIn();
+    final googleUser = await (GoogleSignIn().signIn() as FutureOr<GoogleSignInAccount>);
 
     // Obtain the auth details from the request
     final googleAuth = await googleUser.authentication;
@@ -66,7 +66,7 @@ class UsersProvider extends ChangeNotifier {
     // Once signed in, return the UserCredential
     await _auth.signInWithCredential(credential);
 
-    await UsersRepository.instance.addUsers(Users.fromUser(_auth.currentUser));
+    await UsersRepository.instance.addUsers(Users.fromUser(_auth.currentUser!));
 
     notifyListeners();
   }

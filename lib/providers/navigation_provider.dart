@@ -9,13 +9,10 @@ final navigationProvider = ChangeNotifierProvider<NavigationProvider>(
 );
 
 class NavigationProvider extends ChangeNotifier {
-  NavigationProvider._() {
-    _currentIndex = 0;
-    _pageList = <Widget>[PostListPage(), MyPage()];
-  }
+  NavigationProvider._();
   final scrollController = ScrollController();
-  List<Widget> _pageList;
-  int _currentIndex;
+  final List<Widget> _pageList = <Widget>[PostListPage(), MyPage()];
+  int _currentIndex = 0;
 
   int get currentIndex => _currentIndex;
   Widget get currentPage => _pageList[currentIndex];

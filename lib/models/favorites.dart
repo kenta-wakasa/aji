@@ -17,4 +17,13 @@ class Favorites {
 
   final Users users;
   final Timestamp createdAt;
+
+  Future<void> addToFirebase(CollectionReference ref) async {
+    await ref.add(
+      <String, dynamic>{
+        'createdAt': createdAt,
+        'usersId': users.id,
+      },
+    );
+  }
 }

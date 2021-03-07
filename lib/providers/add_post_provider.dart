@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:aji/models/favorites.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:image_cropper/image_cropper.dart';
 
+import '../models/favorites.dart';
 import '../models/posts.dart';
 import '../models/users.dart';
 import '../providers/providers.dart';
@@ -82,6 +82,7 @@ class PostsProvider extends ChangeNotifier {
       title: title,
       createdAt: Timestamp.now(),
       favorites: const <Favorites>[],
+      docReference: null,
     );
     await PostsRepository.instance.addPosts(posts);
   }

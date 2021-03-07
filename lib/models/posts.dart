@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:aji/models/favorites.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 import 'users.dart';
 
-@immutable
 class Posts {
   const Posts({
     required this.title,
@@ -14,6 +12,7 @@ class Posts {
     required this.users,
     required this.createdAt,
     required this.favorites,
+    required this.docReference,
   });
 
   static Future<Posts> fromDoc(DocumentSnapshot doc) async {
@@ -28,6 +27,7 @@ class Posts {
       url: doc.data()!['url'] as String,
       createdAt: doc.data()!['createdAt'] as Timestamp,
       favorites: favorites,
+      docReference: doc.reference,
     );
   }
 
@@ -36,6 +36,15 @@ class Posts {
   final Users users;
   final Timestamp createdAt;
   final List<Favorites> favorites;
+  final DocumentReference? docReference;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Posts && runtimeType == other.runtimeType && docReference == other.docReference;
+
+  @override
+  int get hashCode => docReference.hashCode;
 }
 
 class PostsRepository {

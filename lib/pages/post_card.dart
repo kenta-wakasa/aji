@@ -1,7 +1,9 @@
+import 'package:aji/pages/utils/easy_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/posts.dart';
+import '../providers/posts_details_provider.dart';
 
 class PostCard extends ConsumerWidget {
   const PostCard({required this.posts});
@@ -9,6 +11,7 @@ class PostCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final size = MediaQuery.of(context).size.width - 32;
+    final provider = watch(postsDetailsProvider(posts));
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -47,10 +50,23 @@ class PostCard extends ConsumerWidget {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.favorite_border_rounded),
-                        onPressed: () {},
+                        icon: provider.isFavorite
+                            ? Icon(Icons.favorite_rounded, color: Colors.red[300])
+                            : Icon(Icons.favorite_border_rounded, color: Colors.red[300]),
+                        onPressed: () async {
+                          if (provider.users.anonymous) {
+                            final ret = await EasyDialog.show(
+                              context: context,
+                              title: const Text('ログインが必要です'),
+                              content: const SizedBox(height: 0),
+                            );
+                            print(ret);
+                          } else {
+                            await provider.switchFavorites();
+                          }
+                        },
                       ),
-                      const Text('000'),
+                      SizedBox(width: 20, child: Text('${provider.favoritesCount}')),
                     ],
                   ),
                 ],

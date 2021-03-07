@@ -1,9 +1,9 @@
-import 'package:aji/pages/post_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/providers.dart';
 import 'add_post_dialog.dart';
+import 'post_card.dart';
 
 class PostListPage extends ConsumerWidget {
   @override
@@ -14,10 +14,10 @@ class PostListPage extends ConsumerWidget {
       () {
         final maxScrollExtent = controller.position.maxScrollExtent;
         final currentPosition = controller.position.pixels;
-        if (maxScrollExtent > 0 && currentPosition >= (maxScrollExtent + 100)) {
+        if (currentPosition > maxScrollExtent + 100 && maxScrollExtent > 0) {
           provider.fetchNextPosts();
         }
-        if (maxScrollExtent > 0 && currentPosition < -100) {
+        if (currentPosition < -100 && maxScrollExtent > 0) {
           provider.update();
         }
       },

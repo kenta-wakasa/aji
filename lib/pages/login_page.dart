@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'common_widgets/google_button.dart';
+import 'utils/google_button.dart';
 
 class LoginPage extends ConsumerWidget {
   @override

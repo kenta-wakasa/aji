@@ -42,6 +42,8 @@ class Users {
   final Timestamp createdAt;
   final String avatarUrl;
 
+  bool get anonymous => id == null;
+
   Future<Users> updateName(String? name) async {
     final users = copyWith(name: name);
     await UsersRepository.instance.updateUsers(users);
@@ -79,7 +81,6 @@ class UsersRepository {
 
   Future<List<Users>> fetchAllUsers() async {
     final query = await _users.get();
-
     return query.docs.map(Users.fromDoc).toList();
   }
 

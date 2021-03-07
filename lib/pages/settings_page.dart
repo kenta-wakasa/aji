@@ -7,9 +7,7 @@ class SettingPage extends ConsumerWidget {
   const SettingPage._();
 
   static void showPage(BuildContext context) {
-    Navigator.of(context).push<void>(
-      MaterialPageRoute(builder: (_) => const SettingPage._())
-    );
+    Navigator.of(context).push<void>(MaterialPageRoute(builder: (_) => const SettingPage._()));
   }
 
   @override
@@ -35,12 +33,14 @@ class SettingPage extends ConsumerWidget {
                   ThemeMode.system,
                   ThemeMode.light,
                   ThemeMode.dark,
-                ].map<DropdownMenuItem<ThemeMode>>((ThemeMode mode) {
-                  return DropdownMenuItem<ThemeMode>(
-                    value: mode,
-                    child: Text(_themeProvider.themeModeToString(mode)),
-                  );
-                }).toList(),
+                ].map<DropdownMenuItem<ThemeMode>>(
+                  (ThemeMode mode) {
+                    return DropdownMenuItem<ThemeMode>(
+                      value: mode,
+                      child: Text(_themeProvider.themeModeToString(mode)),
+                    );
+                  },
+                ).toList(),
               ),
             ),
           ],

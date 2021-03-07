@@ -52,10 +52,10 @@ class UsersProvider extends ChangeNotifier {
 
   Future<void> signInWithGoogle() async {
     // Trigger the authentication flow
-    final googleUser = await (GoogleSignIn().signIn() as FutureOr<GoogleSignInAccount>);
+    final googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final googleAuth = await googleUser.authentication;
+    final googleAuth = await googleUser!.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(

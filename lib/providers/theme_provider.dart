@@ -9,18 +9,17 @@ final themeProvider = ChangeNotifierProvider<ThemeProvider>(
 
 class ThemeProvider extends ChangeNotifier {
   ThemeProvider._() {
-    init();
+    _init();
   }
-  ThemeMode _mode = Preferences.instance.themeMode;
   Color mainColor = Colors.lightBlue[700]!;
   late ThemeData themeDataLight;
   late ThemeData themeDataDark;
   late AppBarTheme appBarTheme;
   late TextTheme textTheme;
 
-  ThemeMode get mode => _mode;
+  ThemeMode get mode => Preferences.instance.themeMode;
 
-  void init() {
+  void _init() {
     appBarTheme = AppBarTheme(
       foregroundColor: mainColor,
       backgroundColor: ThemeData().scaffoldBackgroundColor,
@@ -57,14 +56,10 @@ class ThemeProvider extends ChangeNotifier {
     );
   }
 
-  void switchThemeMode() {
-    _mode = _mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-    notifyListeners();
-  }
+
 
   Future<void> updateThemeMode(ThemeMode? mode) async {
     await Preferences.instance.setThemeMode(mode!);
-    _mode = mode;
     notifyListeners();
   }
 

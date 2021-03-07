@@ -20,8 +20,8 @@ class UsersProvider extends ChangeNotifier {
 
   @override
   void dispose() {
-    super.dispose();
     _sub.cancel();
+    super.dispose();
   }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;

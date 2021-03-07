@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
 import 'add_post_dialog.dart';
 
-
 class PostListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -15,8 +14,11 @@ class PostListPage extends ConsumerWidget {
       () {
         final maxScrollExtent = controller.position.maxScrollExtent;
         final currentPosition = controller.position.pixels;
-        if (maxScrollExtent > 0 && (maxScrollExtent + 100) <= currentPosition) {
+        if (maxScrollExtent > 0 && currentPosition >= (maxScrollExtent + 100)) {
           provider.fetchNextPosts();
+        }
+        if (maxScrollExtent > 0 && currentPosition < -100) {
+          provider.update();
         }
       },
     );

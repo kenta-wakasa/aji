@@ -1,3 +1,4 @@
+import 'package:aji/pages/utils/easy_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,7 +27,13 @@ class PostListPage extends ConsumerWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_rounded),
-        onPressed: () => AddPostDialog.showDialog(context),
+        onPressed: () {
+          if (context.read(usersProvider).users.anonymous) {
+            EasyDialog.showAlertAnonymous(context: context);
+          } else {
+            AddPostDialog.showDialog(context);
+          }
+        },
       ),
       body: CustomScrollView(
         controller: controller,

@@ -31,6 +31,9 @@ class PostsProvider extends ChangeNotifier {
   Future<String?> _pickImage() async {
     final pickedFile = await _picker.getImage(
       source: ImageSource.gallery,
+      maxHeight: 400,
+      maxWidth: 400,
+      imageQuality: 50,
     );
     return pickedFile?.path;
   }

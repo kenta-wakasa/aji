@@ -55,11 +55,7 @@ class PostCard extends ConsumerWidget {
                             : Icon(Icons.favorite_border_rounded, color: Colors.red[300]),
                         onPressed: () async {
                           if (provider.users.anonymous) {
-                            final ret = await EasyDialog.show(
-                              context: context,
-                              title: const Text('ログインが必要です'),
-                              content: const SizedBox(height: 0),
-                            );
+                            final ret = await EasyDialog.showAlertAnonymous(context: context);
                             print(ret);
                           } else {
                             await provider.switchFavorites();

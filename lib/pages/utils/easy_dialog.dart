@@ -1,3 +1,4 @@
+import 'package:aji/pages/utils/google_button.dart';
 import 'package:flutter/material.dart';
 
 class EasyDialog extends StatelessWidget {
@@ -22,13 +23,42 @@ class EasyDialog extends StatelessWidget {
   static Future<bool?> showAlertAnonymous({
     required BuildContext context,
   }) async {
-    const title = Text('ログインが必要です');
-    const content = SizedBox(height: 0);
+    const title = Text('この機能を使うにはログインが必要です');
+    final content = GoogleButton();
+    final actions = <Widget>[
+      TextButton(
+        onPressed: () => Navigator.of(context).pop(true),
+        child: const Text('OK'),
+      ),
+    ];
     final ret = await showDialog<bool>(
       context: context,
-      builder: (context) => const EasyDialog._(title: title, content: content, actions: null),
+      builder: (context) => EasyDialog._(title: title, content: content, actions: actions),
     );
     return ret;
+  }
+
+  static void showIsSending({
+    required BuildContext context,
+  }) {
+    const title = Text('投稿中...');
+    final content = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: const [
+        SizedBox(
+          height: 32,
+          width: 32,
+          child: CircularProgressIndicator(),
+        ),
+      ],
+    );
+
+    final actions = [Container()];
+    showDialog<void>(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => EasyDialog._(title: title, content: content, actions: actions),
+    );
   }
 
   @override
@@ -37,6 +67,7 @@ class EasyDialog extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
+      titleTextStyle: TextStyle(fontSize: 16, color: Theme.of(context).accentColor),
       title: title,
       content: content,
       actions: actions,

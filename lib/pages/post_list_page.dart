@@ -27,11 +27,12 @@ class PostListPage extends ConsumerWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_rounded),
-        onPressed: () {
+        onPressed: () async {
           if (context.read(usersProvider).users.anonymous) {
-            EasyDialog.showAlertAnonymous(context: context);
+            await EasyDialog.showAlertAnonymous(context: context);
           } else {
-            AddPostDialog.showDialog(context);
+            await AddPostDialog.showDialog(context);
+            provider.update();
           }
         },
       ),

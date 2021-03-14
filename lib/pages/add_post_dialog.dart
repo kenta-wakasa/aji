@@ -1,3 +1,4 @@
+import 'package:aji/pages/utils/easy_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,7 +30,9 @@ class AddPostDialog extends ConsumerWidget {
             icon: const Icon(Icons.send_rounded),
             onPressed: file != null
                 ? () async {
+                    EasyDialog.showIsSending(context: context);
                     await _postProvider.addPosts();
+                    Navigator.of(context).pop();
                     Navigator.of(context).pop();
                   }
                 : null,
@@ -42,8 +45,9 @@ class AddPostDialog extends ConsumerWidget {
           children: [
             InkWell(
               onTap: _postProvider.addImage,
-              child: file != null ? Image.file(file) : const Placeholder(),
+              child: file != null ? Image.file(file, fit: BoxFit.fill) : const Placeholder(),
             ),
+            const SizedBox(height: 32),
             TextField(
               textAlign: TextAlign.center,
               onChanged: (value) {

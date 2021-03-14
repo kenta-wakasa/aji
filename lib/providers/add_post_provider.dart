@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:image_cropper/image_cropper.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 import '../models/favorites.dart';
 import '../models/posts.dart';
@@ -29,33 +29,27 @@ class PostsProvider extends ChangeNotifier {
   File? get imageFile => _imageFile;
 
   Future<String?> _pickImage() async {
-    final pickedFile = await _picker.getImage(
-      source: ImageSource.gallery,
-      maxHeight: 400,
-      maxWidth: 400,
-      imageQuality: 50,
-    );
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
     return pickedFile?.path;
   }
 
-  // Future<File> _cropImage(String sourcePath) async {
-  //   final croppedFile = await ImageCropper.cropImage(
-  //     sourcePath: sourcePath,
-  //     aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-  //     maxHeight: 800,
-  //     maxWidth: 800,
-  //     compressQuality: 100,
-  //   );
-  //   return croppedFile;
-  // }
+  Future<File?> _cropImage(String sourcePath) async {
+    final croppedFile = await ImageCropper.cropImage(
+      sourcePath: sourcePath,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      maxHeight: 800,
+      maxWidth: 800,
+      compressQuality: 100,
+    );
+    return croppedFile;
+  }
 
   Future<void> addImage() async {
     final sourcePath = await _pickImage();
     if (sourcePath == null) {
       return;
     }
-    // _imageFile = await _cropImage(sourcePath);
-    _imageFile = File(sourcePath);
+    _imageFile = await _cropImage(sourcePath);
     notifyListeners();
   }
 

@@ -29,6 +29,7 @@ class PostCard extends ConsumerWidget {
                   height: size - 16,
                   width: size - 16,
                   child: FadeInImage.assetNetwork(
+                    fit: BoxFit.fill,
                     placeholder: 'images/logo.png',
                     image: posts.url,
                   ),
